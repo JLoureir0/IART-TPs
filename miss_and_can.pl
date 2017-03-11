@@ -21,8 +21,8 @@ domain(M,C):-
   between(0,3,C).
 
 % Rules: If there are missionaries present on either bank, they cannot be outnumbered by cannibals
-rules(0,C).
-rules(3,C).
+rules(0,_).
+rules(3,_).
 rules(M,C):-
   M   >= C,
   3-M >= 3-C.
