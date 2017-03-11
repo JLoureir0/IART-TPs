@@ -1,9 +1,11 @@
-dfs(E0,_,[E]):-final_state(E).
+dfs([S|Path],_,[S|Path]):-final_state(S).
 
-dfs(E,Visited,[E|Es]):-
-  successor(E,E2), \+ member(E2,Visited),
-  dfs(E2,[E2|Visited],Es).
+dfs([S|Path],Visited,Sol):-
+  successor(S,S2),
+  \+ member(S2,Visited),
+  append([S2],[S|Path],L),
+  dfs(L,[S2|Visited],Sol).
 
 solve_dfs(Sol):-
-  initial_state(Ei),
-  dfs(Ei,[Ei],Sol).
+  initial_state(Si),
+  dfs([Si],[Si],Sol).

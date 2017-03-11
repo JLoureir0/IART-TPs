@@ -1,12 +1,12 @@
-bfs([[E|Cam]|R],[E|Cam]):-
-  final_state(E).
+bfs([[S|Path]|R],[S|Path]):-
+  final_state(S).
 
-bfs([[E|Cam]|R],Sol):-
-  findall([E2|[E|Cam]],successor(E,E2),Ls),
+bfs([[S|Path]|R],Sol):-
+  findall([S2|[S|Path]],successor(S,S2),Ls),
   append(R,Ls,L2),
   bfs(L2,Sol).
 
 
 solve_bfs(Sol):-
-  initial_state(Ei),
-  bfs([[Ei]],Sol).
+  initial_state(Si),
+  bfs([[Si]],Sol).

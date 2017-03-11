@@ -31,8 +31,9 @@ successor(b(X,Y), b(0,Y1)) :-
 %Transitions between states with an associated cost
 successor(b(X,Y), b(4,Y), C) :- X<4, C is 4-X.
 successor(b(X,Y), b(X,3), C) :- Y<3, C is 3-Y.
-successor(b(X,Y), b(0,Y), C)  :- X>0, C is X.
-successor(b(X,Y), b(X,0), C)  :- Y>0, C is Y.
+successor(b(X,Y), b(0,Y), C) :- X>0, C is X.
+successor(b(X,Y), b(X,0), C) :- Y>0, C is Y.
+
 successor(b(X,Y), b(4,Y1), C) :-
 			X+Y>=4,
 			X<4,
