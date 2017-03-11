@@ -54,3 +54,9 @@ successor(b(X,Y), b(0,Y1), C) :-
 			X>0,
 			Y1 is X+Y,
       C is X.
+
+% Heuristic chosen to this bucket problem
+h(b(X,Y), H):-
+  final_state(b(Xf,Yf)),
+  H is max(abs(X-Xf),abs(Y-Yf)).
+

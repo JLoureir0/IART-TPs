@@ -1,7 +1,3 @@
-h(b(X,Y), H):-
-  final_state(b(Xf,Yf)),
-  H is max(abs(X-Xf),abs(Y-Yf)).
-
 astar([[(F,G,S)|Path]|R],[(F,G,S)|Path]):-
   final_state(S).
 
