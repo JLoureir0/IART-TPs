@@ -15,70 +15,61 @@ initial_state(misscan(3,3,1)).
 % Final State
 final_state(misscan(0,0,0)).
 
-% Restrictions
-restrictions(3,C,_):-
-  C =< 3,
-  C >= 0.
-restrictions(0,C,_):-
-  C =< 3,
-  C >= 0.
-restrictions(M,C,_):-
-  M >= C,
+% Domain missionaries and cannibals
+domain(M,C):-
+  between(0,3,M),
+  between(0,3,C).
+
+% Rules: If there are missionaries present on either bank, they cannot be outnumbered by cannibals
+rules(0,C).
+rules(3,C).
+rules(M,C):-
+  M   >= C,
   3-M >= 3-C.
 
 
 % State Transitions
 successor(misscan(M,C,1), misscan(Nm,C,0)) :-
-  M >= 2, M =< 3,
-  C >= 0, C =< 3,
   Nm is M-2,
-  restrictions(Nm,C,0).
+  domain(Nm,C),
+  rules(Nm,C).
 successor(misscan(M,C,0), misscan(Nm,C,1)) :-
-  M >= 0, M =< 1,
-  C >= 0, C =< 3,
   Nm is M+2,
-  restrictions(Nm,C,1).
+  domain(Nm,C),
+  rules(Nm,C).
 successor(miproblemsscan(M,C,1), misscan(Nm,C,0)) :-
-  M >= 1, M =< 3,
-  C >= 0, C =< 3,
   Nm is M-1,
-  restrictions(Nm,C,0).
+  domain(Nm,C),
+  rules(Nm,C).
 successor(misscan(M,C,0), misscan(Nm,C,1)) :-
-  M >= 0, M =< 2,
-  C >= 0, C =< 3,
   Nm is M+1,
-  restrictions(Nm,C,1).
+  domain(Nm,C),
+  rules(Nm,C).
 
 successor(misscan(M,C,1), misscan(M,Nc,0)) :-
-  M >= 0, M =< 3,
-  C >= 2, C =< 3,
   Nc is C-2,
-  restrictions(M,Nc,0).
+  domain(M,Nc),
+  rules(M,Nc).
 successor(misscan(M,C,0), misscan(M,Nc,1)) :-
-  M >= 0, M =< 3,
-  C >= 0, C =< 1,
   Nc is C+2,
-  restrictions(M,Nc,1).
+  domain(M,Nc),
+  rules(M,Nc).
 successor(misscan(M,C,1), misscan(M,Nc,0)) :-
-  M >= 0, M =< 3,
-  C >= 1, C =< 3,
   Nc is C-1,
-  restrictions(M,Nc,0).
+  domain(M,Nc),
+  rules(M,Nc).
 successor(misscan(M,C,0), misscan(M,Nc,1)) :-
-  M >= 0, M =< 3,
-  C >= 0, C =< 2,
   Nc is C+1,
-  restrictions(M,Nc,1).
+  domain(M,Nc),
+  rules(M,Nc).
 
 successor(misscan(M,C,1), misscan(Nm,Nc,0)) :-
-  M >= 1, M =< 3,
-  C >= 1, C =< 3,
   Nm is M-1,
   Nc is C-1,
-  restrictions(Nm,Nc,0).
+  domain(Nm,Nc),
+  rules(Nm,Nc).
 successor(misscan(M,C,0), misscan(Nm,Nc,1)) :-
-  M >= 0, M =< 2,
-  C >= 0, C =< 2,
   Nm is M+1,
   Nc is C+1,
-  restrictions(Nm,Nc,1).
+  domain(Nm,Nc),
+  rules(Nm,Nc).
